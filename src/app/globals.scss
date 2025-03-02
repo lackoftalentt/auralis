@@ -26,10 +26,6 @@
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-dm-sans), sans-serif;
-
   background: linear-gradient(
     180deg,
     rgb(34, 34, 34),
@@ -43,5 +39,14 @@ body {
     rgb(18, 18, 18) 85.454%,
     rgba(18, 18, 18, 0) 100%
   );
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-dm-sans), sans-serif;
+  background-attachment: fixed;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-dm-sans), sans-serif;
+  background-attachment: fixed;
+  background-size: cover;
   color: white;
 }
