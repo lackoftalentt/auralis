@@ -2,6 +2,8 @@
 
 import { DM_Sans } from 'next/font/google'
 import './globals.scss'
+import 'swiper/css'
+import 'swiper/css/navigation'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 import { SideBar } from '@/widgets/SideBar'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
