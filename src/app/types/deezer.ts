@@ -16,6 +16,7 @@ export interface Track {
     title: string
     duration: number
     preview: string
+    expilit_lyrics: boolean
     artist: {
         id: number
         name: string
@@ -24,7 +25,7 @@ export interface Track {
     album: {
         id: number
         title: string
-        cover_medium: string
+        cover_small: string
     }
 }
 

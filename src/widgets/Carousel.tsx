@@ -1,6 +1,6 @@
 'use-client'
 
-import { useRef, JSX } from 'react'
+import { useRef, JSX, useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
@@ -22,17 +22,19 @@ export const CarouselSection = <T,>({
 }: CarouselSectionProps<T>) => {
     const swiperRef = useRef(null)
 
+    const normalizedTitle = title.replace(/\s+/g, '-').toLowerCase()
+
     return (
         <div className="mb-10">
             <div className="flex justify-between items-center">
                 <h2 className="font-bold text-4xl mb-5">{title}</h2>
                 <div className="page-header mt-5 flex gap-4 mb-[20px]">
                     <button
-                        className={`custom-prev flex items-center justify-center w-[40px] h-[40px] bg-[rgb(19,19,19)] rounded-full cursor-pointer`}>
+                        className={`custom-prev-${normalizedTitle} flex items-center justify-center w-[40px] h-[40px] bg-[rgb(19,19,19)] opacity-30 hover:opacity-100 rounded-full cursor-pointer`}>
                         <FaAngleLeft size={20} />
                     </button>
                     <button
-                        className={`custom-next flex items-center justify-center w-[40px] h-[40px] bg-[rgb(19,19,19)] rounded-full cursor-pointer`}>
+                        className={`custom-next-${normalizedTitle} flex items-center justify-center w-[40px] h-[40px] bg-[rgb(19,19,19)] opacity-30 hover:opacity-100 rounded-full cursor-pointer transition-colors`}>
                         <FaAngleRight size={20} />
                     </button>
                 </div>
@@ -46,8 +48,8 @@ export const CarouselSection = <T,>({
                     spaceBetween={30}
                     slidesPerView={5}
                     navigation={{
-                        nextEl: `.custom-next`,
-                        prevEl: `.custom-prev`
+                        nextEl: `.custom-next-${normalizedTitle}`,
+                        prevEl: `.custom-prev-${normalizedTitle}`
                     }}
                     className="swiper max-w-[1280px]">
                     {items?.map((item, index) => (

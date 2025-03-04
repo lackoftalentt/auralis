@@ -12,7 +12,7 @@ interface ArtistCardProps {
 
 export const ArtistCard = ({ name, img, nb_fans }: ArtistCardProps) => {
     return (
-        <div className="rounded-full w-[200px] h-[300px] text-center cursor-pointer">
+        <div className="rounded-full w-[200px] h-[280px] text-center cursor-pointer">
             <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
