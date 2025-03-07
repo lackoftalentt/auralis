@@ -8,6 +8,7 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 import { SideBar } from '@/widgets/SideBar'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useState } from 'react'
+import { SearchBar } from '@/widgets/SearchBar'
 
 const dmSans = DM_Sans({
     variable: '--font-dm-sans',
@@ -53,13 +54,16 @@ export default function RootLayout({
             <body className={`${dmSans.variable} antialiased h-screen flex`}>
                 <SideBar />
                 <div className="w-[1280px] mx-auto pl-14">
-                    <div className="page-header mt-5 flex gap-4 mb-[40px]">
-                        <span className="flex items-center justify-center w-[40px] h-[40px] bg-[rgb(19,19,19)] rounded-full hover:opacity-100 opacity-50 cursor-pointer">
-                            <FaAngleLeft size={20} />
-                        </span>
-                        <span className="flex items-center justify-center w-[40px] h-[40px] bg-[rgb(19,19,19)] rounded-full hover:opacity-100  cursor-pointer">
-                            <FaAngleRight size={20} />
-                        </span>
+                    <div className="flex gap-4 items-center page-header mt-5 mb-[40px]">
+                        <div className="flex gap-4 ">
+                            <span className="flex items-center justify-center w-[40px] h-[40px] bg-[rgb(19,19,19)] rounded-full hover:opacity-100 opacity-50 transition-colors  cursor-pointer">
+                                <FaAngleLeft size={20} />
+                            </span>
+                            <span className="flex items-center justify-center w-[40px] h-[40px] bg-[rgb(19,19,19)] rounded-full hover:opacity-100 opacity-50 transition-colors cursor-pointer">
+                                <FaAngleRight size={20} />
+                            </span>
+                        </div>
+                        <SearchBar />
                     </div>
                     <QueryClientProvider client={queryClient}>
                         {children}

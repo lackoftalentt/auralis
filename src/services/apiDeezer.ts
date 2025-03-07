@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 import {
     PlaylistsResponse,
     TracksResponse,
@@ -25,5 +26,22 @@ export const useDeezerQuery = <T extends DeezerType>(type: T) => {
     return useQuery<(typeof responseTypes)[T]>({
         queryKey: ['deezer', type],
         queryFn: () => fetchDeezerData<(typeof responseTypes)[T]>(type)
+    })
+}
+
+const fetchSearchResults = async (query: string) => {
+    if (!query.trim()) return null
+    const { data } = await axios.get(
+        `/api/deezer/search?q=${encodeURIComponent(query)}`
+    )
+    return data
+}
+
+export const useSearchQuery = (query: string) => {
+    return useQuery({
+        queryKey: ['search', query],
+        queryFn: () => fetchSearchResults(query),
+        enabled: !!query,
+        staleTime: 1000 * 60 * 5
     })
 }

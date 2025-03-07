@@ -14,8 +14,6 @@ export default function Home() {
         error: tracksError
     } = useDeezerQuery('tracks')
 
-    console.log(tracks)
-
     const {
         data: artists,
         isLoading: artistsLoading,

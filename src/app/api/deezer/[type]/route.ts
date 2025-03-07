@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 
+const BASE_URL = 'https://api.deezer.com/chart/0'
+
 export async function GET(
     req: Request,
     { params }: { params: { type: string } }
@@ -7,10 +9,10 @@ export async function GET(
     const { type } = params
 
     const availableEndpoints: Record<string, string> = {
-        playlists: 'https://api.deezer.com/chart/0/playlists',
-        tracks: 'https://api.deezer.com/chart/0/tracks',
-        artists: 'https://api.deezer.com/chart/0/artists',
-        albums: 'https://api.deezer.com/chart/0/albums'
+        playlists: `${BASE_URL}/playlists`,
+        tracks: `${BASE_URL}/tracks`,
+        artists: `${BASE_URL}/artists`,
+        albums: `${BASE_URL}/albums`
     }
 
     if (!availableEndpoints[type]) {
