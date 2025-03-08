@@ -35,12 +35,14 @@ export function SideBar() {
 
     return (
         <aside className="fixed w-60 h-screen left-0 px-3 bg-black rounded-md text-[14px] font-bold leading-[25px]">
-            <div className="flex justify-center my-6">
-                <Image
-                    width={200}
-                    src={logo}
-                    alt="logo"
-                />
+            <div className="flex justify-center my-6 cursor-pointer">
+                <Link href="/">
+                    <Image
+                        width={200}
+                        src={logo}
+                        alt="logo"
+                    />
+                </Link>
             </div>
 
             <div className="side-top mb-8">

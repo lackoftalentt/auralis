@@ -26,30 +26,6 @@ export default function RootLayout({
         <html lang="en">
             <head>
                 <title>Auralis</title>
-                <meta
-                    name="description"
-                    content="Слушай музыку, открывай новые плейлисты и сохраняй любимые треки!"
-                />
-                <meta
-                    name="keywords"
-                    content="музыка, плейлисты, аудио, стриминг"
-                />
-                <meta
-                    property="og:title"
-                    content="Auralis - Музыкальная платформа"
-                />
-                <meta
-                    property="og:description"
-                    content="Слушай музыку, открывай новые плейлисты и сохраняй любимые треки!"
-                />
-                <meta
-                    property="og:image"
-                    content="/preview.jpg"
-                />
-                <meta
-                    property="og:type"
-                    content="website"
-                />
             </head>
             <body className={`${dmSans.variable} antialiased h-screen flex`}>
                 <SideBar />
@@ -63,7 +39,9 @@ export default function RootLayout({
                                 <FaAngleRight size={20} />
                             </span>
                         </div>
-                        <SearchBar />
+                        <div>
+                            <SearchBar />
+                        </div>
                     </div>
                     <QueryClientProvider client={queryClient}>
                         {children}

@@ -16,7 +16,7 @@ export interface Track {
     title: string
     duration: number
     preview: string
-    expilit_lyrics: boolean
+    explicit_lyrics: boolean
     readable: boolean
     artist: {
         id: number

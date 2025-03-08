@@ -1,25 +1,18 @@
+'use client'
+
 import { TrackList } from '@/entities/TrackList'
 import { useSearchQuery } from '@/services/apiDeezer'
 import React from 'react'
 
-interface SearchResults {
+interface SearchResultsProps {
     query: string
 }
 
-export const SearchResults = ({ query }: SearchResults) => {
+export const SearchResults = ({ query }: SearchResultsProps) => {
     const { data, isLoading, error } = useSearchQuery(query)
-
-    console.log(data)
 
     if (isLoading) return <p>Загрузка...</p>
     if (error) return <p>Ошибка загрузки</p>
-    return (
-        <div>
-            {isLoading ? (
-                <p className="text-white mt-4">Загрузка...</p>
-            ) : (
-                data?.data && <TrackList tracks={data.data} />
-            )}
-        </div>
-    )
+
+    return <div>{data?.data && <TrackList tracks={data.data} />}</div>
 }

@@ -16,10 +16,9 @@ const responseTypes = {
     albums: {} as AlbumsResponse
 }
 
-const fetchDeezerData = async <T>(type: string): Promise<T> => {
-    const res = await fetch(`/api/deezer/${type}`)
-    if (!res.ok) throw new Error('Failed to fetch')
-    return res.json()
+const fetchDeezerData = async <T>(type: DeezerType): Promise<T> => {
+    const { data } = await axios.get<T>(`/api/deezer/${type}`)
+    return data
 }
 
 export const useDeezerQuery = <T extends DeezerType>(type: T) => {
@@ -42,6 +41,20 @@ export const useSearchQuery = (query: string) => {
         queryKey: ['search', query],
         queryFn: () => fetchSearchResults(query),
         enabled: !!query,
+        staleTime: 1000 * 60 * 5
+    })
+}
+
+const fetchArtist = async (id: string) => {
+    const { data } = await axios.get(`/api/deezer/artist/${id}`)
+    return data
+}
+
+export const useArtistQuery = (id: string) => {
+    return useQuery({
+        queryKey: ['artist', id],
+        queryFn: () => fetchArtist(id),
+        enabled: !!id,
         staleTime: 1000 * 60 * 5
     })
 }

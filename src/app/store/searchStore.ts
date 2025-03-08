@@ -10,6 +10,6 @@ interface ISearchStore {
 export const useSearchStore = create<ISearchStore>(set => ({
     value: '',
     debouncedValue: '',
-    setValue: value => set({ value: value }),
-    setDebouncedValue: debouncedValue => set({ debouncedValue: debouncedValue })
+    setValue: value => set({ value }),
+    setDebouncedValue: debouncedValue => set({ debouncedValue })
 }))

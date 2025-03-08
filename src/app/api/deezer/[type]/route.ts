@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { NextResponse } from 'next/server'
 
 const BASE_URL = 'https://api.deezer.com/chart/0'
@@ -20,9 +21,7 @@ export async function GET(
     }
 
     try {
-        const res = await fetch(availableEndpoints[type])
-        if (!res.ok) throw new Error('Failed to fetch data')
-        const data = await res.json()
+        const { data } = await axios.get(availableEndpoints[type])
         return NextResponse.json(data)
     } catch (error) {
         return NextResponse.json(

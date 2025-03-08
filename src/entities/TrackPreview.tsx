@@ -23,7 +23,7 @@ export const TrackPreview = ({
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
             whileHover={{ scale: 1.1 }}
-            className="w-[400px] h-[60px] bg-[rgb(24,24,24)] flex items-center gap-4 cursor-pointer rounded-md whitespace-nowrap overflow-hidden overflow-ellipsis">
+            className="w-[400px] h-[60px] bg-[rgb(24,24,24)] flex items-center gap-4 rounded-md whitespace-nowrap overflow-hidden overflow-ellipsis">
             {img && (
                 <Image
                     className="rounded-md"

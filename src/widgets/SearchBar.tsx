@@ -13,14 +13,21 @@ export const SearchBar = () => {
     const [debouncedValue] = useDebounce(value, 500)
 
     useEffect(() => {
-        setDebouncedValue(debouncedValue)
+        if (value !== debouncedValue) {
+            setDebouncedValue(debouncedValue)
+        }
         if (debouncedValue.trim()) {
             router.push(`/search?q=${encodeURIComponent(debouncedValue)}`)
         }
     }, [debouncedValue, router, setDebouncedValue])
 
     return (
-        <form className="flex items-center bg-white rounded-full px-4 py-2 w-[450px] h-[50px] gap-4">
+        <form
+            onSubmit={event => {
+                event.preventDefault()
+                router.push(`/search?q=${encodeURIComponent(debouncedValue)}`)
+            }}
+            className="flex items-center bg-white rounded-full px-4 py-2 w-[450px] h-[50px] gap-4">
             <FaSearch className="text-gray-500" />
             <input
                 value={value}

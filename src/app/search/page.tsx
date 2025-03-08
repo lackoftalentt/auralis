@@ -9,9 +9,9 @@ export default function SearchPage() {
     const query = searchParams.get('q')
     return (
         <div>
-            <h1 className="font-bold text-4xl mb-5">
+            {/* <h1 className="font-bold text-4xl mb-5">
                 Search Results for "{query}"
-            </h1>
+            </h1> */}
             <SearchResults query={query || ''} />
         </div>
     )

@@ -44,7 +44,7 @@ export default function Home() {
                             title={track.title}
                             img={track.album.cover_small}
                             author={track.artist.name}
-                            isExpilit={track.expilit_lyrics}
+                            isExpilit={track.explicit_lyrics}
                         />
                     ))}
                 </div>
