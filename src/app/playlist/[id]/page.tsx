@@ -1,60 +1,72 @@
 'use client'
 
-import Image from 'next/image'
-import React, { useState } from 'react'
-import { useParams } from 'next/navigation'
-import { useArtistQuery, useFetchArtistTrackList } from '@/services/apiDeezer'
-import { TrackList } from '@/entities/TrackList'
-import { FaSearch } from 'react-icons/fa'
-import { BiHeart, BiPlay } from 'react-icons/bi'
-import { Track } from '@/app/types/deezer'
+import { formatDuration } from '@/app/hooks/durationFormatter'
 import { useSearchStore } from '@/app/store/searchStore'
+import { Track } from '@/app/types/deezer'
+import { TrackList } from '@/entities/TrackList'
+import { useFetchPlaylistById } from '@/services/apiDeezer'
+import Image from 'next/image'
+import { useParams } from 'next/navigation'
+import React from 'react'
+import { BiHeart, BiPlay } from 'react-icons/bi'
+import { FaSearch } from 'react-icons/fa'
 
-export default function ArtistPage() {
+export default function PlaylistPage() {
     const { id } = useParams()
-    const artistId = Array.isArray(id) ? id[0] : id || ''
-
-    const { data: artist, isLoading, error } = useArtistQuery(artistId)
-
-    const tracklistUrl = artist?.tracklist
-    const { data: tracklist } = useFetchArtistTrackList(tracklistUrl)
+    const {
+        data: playlist,
+        isLoading,
+        error
+    } = useFetchPlaylistById(id as string)
+    console.log(playlist)
 
     const { trackSearchQuery, setTrackSearchQuery } = useSearchStore()
 
-    if (isLoading) return <p>Loading...</p>
-    if (error) return <p>Error loading artist</p>
-
     const filteredTracks =
-        tracklist?.data?.filter((track: Track) =>
+        playlist?.tracks?.data?.filter((track: Track) =>
             track.title.toLowerCase().includes(trackSearchQuery.toLowerCase())
         ) || []
+
+    if (isLoading) return <p>Loading...</p>
+    if (error) return <p>Error loading playlist</p>
 
     return (
         <main>
             <div className="flex items-center gap-8 mb-[40px]">
-                {artist?.picture_big && (
+                {playlist?.picture_big && (
                     <Image
-                        src={artist?.picture_big}
+                        src={playlist.picture_big}
                         width={360}
                         height={360}
-                        className="rounded-full"
-                        alt={artist?.name || 'Artist'}
+                        alt={playlist?.title || 'Playlist'}
                     />
                 )}
-
                 <div>
-                    <h2 className="font-bold text-8xl mb-5">{artist?.name}</h2>
-                    <h4 className="font-semibold text-xl opacity-75">
-                        {artist?.nb_fan.toLocaleString()} fans
-                    </h4>
-                    <h4 className="font-semibold text-xl opacity-75">
-                        {artist?.nb_album} albums
-                    </h4>
+                    <h2 className="font-bold text-8xl mb-5">
+                        {playlist?.title}
+                    </h2>
+                    <div className="">
+                        <h4 className="font-semibold text-xl opacity-75">
+                            created by {playlist?.creator?.name}
+                        </h4>
+                        <h4 className="font-semibold text-xl opacity-75">
+                            {playlist?.nb_tracks} tracks
+                        </h4>
+                        <h4 className="font-semibold text-xl opacity-75">
+                            Duration:{' '}
+                            {playlist?.duration
+                                ? formatDuration(playlist.duration)
+                                : 'Unknown'}
+                        </h4>
+                        <h4 className="font-semibold text-xl opacity-75">
+                            {playlist?.fans?.toLocaleString() || 0} fans
+                        </h4>
+                    </div>
                 </div>
             </div>
             <div>
                 <div className="flex justify-between items-center">
-                    <h2 className="font-bold text-5xl mb-5">Top tracks</h2>
+                    <h2 className="font-bold text-5xl mb-5">Tracks</h2>
                     <div className="flex items-center gap-4">
                         <BiPlay
                             size={54}

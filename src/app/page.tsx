@@ -6,6 +6,7 @@ import { ArtistCard } from '@/entities/ArtistCard'
 import { CarouselSection } from '@/widgets/Carousel'
 import { PlaylistCard } from '@/entities/PlaylistCard'
 import { TrackPreview } from '@/entities/TrackPreview'
+import Link from 'next/link'
 
 export default function Home() {
     const {
@@ -41,10 +42,7 @@ export default function Home() {
                     {tracks?.data.map(track => (
                         <TrackPreview
                             key={track.id}
-                            title={track.title}
-                            img={track.album.cover_small}
-                            author={track.artist.name}
-                            isExpilit={track.explicit_lyrics}
+                            track={track}
                         />
                     ))}
                 </div>
@@ -56,11 +54,13 @@ export default function Home() {
                 loading={artistsLoading}
                 error={artistsError}
                 renderItem={artist => (
-                    <ArtistCard
-                        img={artist.picture_medium}
-                        name={artist.name}
-                        nb_fans={artist.id}
-                    />
+                    <Link href={`/artist/${artist.id}`}>
+                        <ArtistCard
+                            img={artist.picture_medium}
+                            name={artist.name}
+                            nb_fans={artist.id}
+                        />
+                    </Link>
                 )}
             />
 
@@ -70,11 +70,13 @@ export default function Home() {
                 loading={playlistsLoading}
                 error={playlistsError}
                 renderItem={playlist => (
-                    <PlaylistCard
-                        img={playlist.picture_medium}
-                        title={playlist.title}
-                        nb_tracks={playlist.nb_tracks}
-                    />
+                    <Link href={`/playlist/${playlist.id}`}>
+                        <PlaylistCard
+                            img={playlist.picture_medium}
+                            title={playlist.title}
+                            nb_tracks={playlist.nb_tracks}
+                        />
+                    </Link>
                 )}
             />
 

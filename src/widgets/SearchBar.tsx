@@ -7,19 +7,20 @@ import { FaSearch } from 'react-icons/fa'
 import { useDebounce } from 'use-debounce'
 
 export const SearchBar = () => {
-    const { value, setValue, setDebouncedValue } = useSearchStore()
+    const { globalSearchQuery, setGlobalSearchQuery, setDebouncedSearchQuery } =
+        useSearchStore()
     const router = useRouter()
 
-    const [debouncedValue] = useDebounce(value, 500)
+    const [debouncedValue] = useDebounce(globalSearchQuery, 500)
 
     useEffect(() => {
-        if (value !== debouncedValue) {
-            setDebouncedValue(debouncedValue)
+        if (globalSearchQuery !== debouncedValue) {
+            setDebouncedSearchQuery(debouncedValue)
         }
         if (debouncedValue.trim()) {
             router.push(`/search?q=${encodeURIComponent(debouncedValue)}`)
         }
-    }, [debouncedValue, router, setDebouncedValue])
+    }, [debouncedValue, router, setDebouncedSearchQuery])
 
     return (
         <form
@@ -30,8 +31,8 @@ export const SearchBar = () => {
             className="flex items-center bg-white rounded-full px-4 py-2 w-[450px] h-[50px] gap-4">
             <FaSearch className="text-gray-500" />
             <input
-                value={value}
-                onChange={e => setValue(e.target.value)}
+                value={globalSearchQuery}
+                onChange={e => setGlobalSearchQuery(e.target.value)}
                 className="focus:outline-none font-semibold text-black w-full"
                 placeholder="What do you want to include?"
             />

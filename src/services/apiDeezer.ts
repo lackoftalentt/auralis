@@ -17,7 +17,7 @@ const responseTypes = {
 }
 
 const fetchDeezerData = async <T>(type: DeezerType): Promise<T> => {
-    const { data } = await axios.get<T>(`/api/deezer/${type}`)
+    const { data } = await axios.get<T>(`/api/deezer/charts/${type}`)
     return data
 }
 
@@ -54,6 +54,41 @@ export const useArtistQuery = (id: string) => {
     return useQuery({
         queryKey: ['artist', id],
         queryFn: () => fetchArtist(id),
+        enabled: !!id,
+        staleTime: 1000 * 60 * 5
+    })
+}
+
+const fetchArtistTrackList = async (tracklistUrl: string) => {
+    const { data } = await axios.get(
+        `/api/deezer/artist/tracklist?tracklist=${encodeURIComponent(
+            tracklistUrl
+        )}`
+    )
+    return data
+}
+
+export const useFetchArtistTrackList = (tracklistUrl?: string) => {
+    return useQuery({
+        queryKey: ['tracklist', tracklistUrl],
+        queryFn: () =>
+            tracklistUrl
+                ? fetchArtistTrackList(tracklistUrl)
+                : Promise.resolve(null),
+        enabled: !!tracklistUrl,
+        staleTime: 1000 * 60 * 5
+    })
+}
+
+const fetchPlaylistById = async (id: string) => {
+    const { data } = await axios.get(`/api/deezer/playlist/${id}`)
+    return data
+}
+
+export const useFetchPlaylistById = (id: string) => {
+    return useQuery({
+        queryKey: ['playlist', id],
+        queryFn: () => fetchPlaylistById(id),
         enabled: !!id,
         staleTime: 1000 * 60 * 5
     })

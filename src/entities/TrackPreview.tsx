@@ -3,20 +3,14 @@ import React from 'react'
 import { motion } from 'framer-motion'
 
 import { BsExplicitFill } from 'react-icons/bs'
+import Link from 'next/link'
+import { Track } from '@/app/types/deezer'
 
 interface TrackPreviewProps {
-    title: string
-    img: string
-    author: string
-    isExpilit: boolean
+    track: Track
 }
 
-export const TrackPreview = ({
-    title,
-    img,
-    author,
-    isExpilit
-}: TrackPreviewProps) => {
+export const TrackPreview = ({ track }: TrackPreviewProps) => {
     return (
         <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
@@ -24,23 +18,27 @@ export const TrackPreview = ({
             transition={{ duration: 0.4, ease: 'easeOut' }}
             whileHover={{ scale: 1.1 }}
             className="w-[400px] h-[60px] bg-[rgb(24,24,24)] flex items-center gap-4 rounded-md whitespace-nowrap overflow-hidden overflow-ellipsis">
-            {img && (
+            {track.album.cover_small && (
                 <Image
-                    className="rounded-md"
+                    className="rounded-md cursor-pointer"
                     width={56}
                     height={56}
-                    src={img}
-                    alt={title || 'Track image'}
+                    src={track.album.cover_small}
+                    alt={track.title || 'Track image'}
                 />
             )}
             <div>
                 <div className="flex items-center gap-2">
-                    <h3>{title}</h3>
-                    {isExpilit && <BsExplicitFill />}
+                    <h3>{track.title}</h3>
+                    {track.explicit_lyrics && <BsExplicitFill />}
                 </div>
                 <div className="flex gap-1">
                     <span className="opacity-55">by</span>
-                    <p className="opacity-55">{author}</p>
+                    <Link
+                        href={`/artist/${track.artist.id}`}
+                        className="opacity-55 hover:underline">
+                        {track.artist.name}
+                    </Link>
                 </div>
             </div>
         </motion.div>
