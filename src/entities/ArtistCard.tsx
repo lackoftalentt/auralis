@@ -17,7 +17,7 @@ export const ArtistCard = ({ name, img, nb_fans }: ArtistCardProps) => {
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 0.9 }}
                 className="rounded-full overflow-hidden">
                 <Image
                     className="rounded-full"

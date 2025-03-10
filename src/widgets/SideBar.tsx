@@ -4,16 +4,8 @@ import Image from 'next/image'
 import React from 'react'
 import logo from '../../public/assets/logo.png'
 import heart from '../../public/assets/heart.svg'
-import media from '../../public/assets/media-podcast.png'
 import { usePathname } from 'next/navigation'
-import { BiHistory, BiHomeCircle, BiLibrary, BiSearch } from 'react-icons/bi'
 import Link from 'next/link'
-import { MdExplore } from 'react-icons/md'
-
-const menuItems = [
-    { name: 'Home', href: '/', icon: <BiHomeCircle size={20} /> },
-    { name: 'Explore', href: '/explore', icon: <MdExplore size={20} /> }
-]
 
 const playlistItems = [
     {
@@ -35,7 +27,7 @@ export function SideBar() {
 
     return (
         <aside className="fixed w-60 h-screen left-0 px-3 bg-black rounded-md text-[14px] font-bold leading-[25px]">
-            <div className="flex justify-center my-6 cursor-pointer">
+            <div className="flex justify-center my-8 cursor-pointer">
                 <Link href="/">
                     <Image
                         width={200}
@@ -45,7 +37,7 @@ export function SideBar() {
                 </Link>
             </div>
 
-            <div className="side-top mb-8">
+            {/* <div className="side-top mb-8">
                 <ul>
                     {menuItems.map(({ name, href, icon }) => {
                         const isActive = pathname === href
@@ -62,9 +54,10 @@ export function SideBar() {
                         )
                     })}
                 </ul>
-            </div>
+            </div> */}
 
             <div>
+                <p className="opacity-70">Playlists</p>
                 <ul>
                     {playlistItems.map(({ name, href, icon }) => {
                         const isActive = pathname === href

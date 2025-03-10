@@ -17,7 +17,7 @@ export const PlaylistCard = ({ img, title, nb_tracks }: PlaylistCardProps) => {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
             whileHover={{
-                scale: 1.05,
+                scale: 0.9,
                 boxShadow: '0px 10px 20px rgba(0,0,0,0.3)'
             }}
             className="bg-[rgb(24,24,24)] w-[230px] h-[280px] px-6 py-5 rounded-xl cursor-pointer

@@ -4,7 +4,7 @@ import { formatDuration } from '@/app/hooks/durationFormatter'
 import { useSearchStore } from '@/app/store/searchStore'
 import { Track } from '@/app/types/deezer'
 import { TrackList } from '@/entities/TrackList'
-import { useFetchPlaylistById } from '@/services/apiDeezer'
+import { useFetchAlbumById } from '@/services/apiDeezer'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
@@ -12,57 +12,56 @@ import React from 'react'
 import { BiHeart, BiPlay } from 'react-icons/bi'
 import { FaSearch } from 'react-icons/fa'
 
-export default function PlaylistPage() {
+export default function AlbumPage() {
     const { id } = useParams()
-    const {
-        data: playlist,
-        isLoading,
-        error
-    } = useFetchPlaylistById(id as string)
-    console.log(playlist)
+    const { data: album, isLoading, error } = useFetchAlbumById(id as string)
+    console.log(album)
 
     const { trackSearchQuery, setTrackSearchQuery } = useSearchStore()
 
     const filteredTracks =
-        playlist?.tracks?.data?.filter((track: Track) =>
+        album?.tracks?.data?.filter((track: Track) =>
             track.title.toLowerCase().includes(trackSearchQuery.toLowerCase())
         ) || []
 
     if (isLoading) return <p>Loading...</p>
-    if (error) return <p>Error loading playlist</p>
+    if (error) return <p>Error loading album</p>
 
-    console.log(playlist)
+    console.log(album)
 
     return (
         <main>
             <div className="flex items-center gap-8 mb-[40px]">
-                {playlist?.picture_big && (
+                {album?.cover_big && (
                     <Image
-                        src={playlist.picture_big}
+                        src={album.cover_big}
                         width={360}
                         height={360}
-                        alt={playlist?.title || 'Playlist'}
+                        alt={album?.title || 'Album'}
                     />
                 )}
                 <div>
-                    <h2 className="font-bold text-8xl mb-5">
-                        {playlist?.title}
-                    </h2>
+                    <h2 className="font-bold text-8xl mb-5">{album?.title}</h2>
                     <div className="">
+                        <span className="font-semibold text-xl opacity-75 ">
+                            author{'  '}
+                            <Link
+                                href={`/artist/${album?.artist?.id}`}
+                                className="hover:underline">
+                                {album?.artist?.name}
+                            </Link>
+                        </span>
                         <h4 className="font-semibold text-xl opacity-75">
-                            created by {playlist?.creator?.name}
-                        </h4>
-                        <h4 className="font-semibold text-xl opacity-75">
-                            {playlist?.nb_tracks} tracks
+                            {album?.nb_tracks} tracks
                         </h4>
                         <h4 className="font-semibold text-xl opacity-75">
                             Duration:{' '}
-                            {playlist?.duration
-                                ? formatDuration(playlist.duration)
+                            {album?.duration
+                                ? formatDuration(album.duration)
                                 : 'Unknown'}
                         </h4>
                         <h4 className="font-semibold text-xl opacity-75">
-                            {playlist?.fans?.toLocaleString() || 0} fans
+                            {album?.fans?.toLocaleString() || 0} liked
                         </h4>
                     </div>
                 </div>

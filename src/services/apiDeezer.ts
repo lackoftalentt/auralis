@@ -93,3 +93,17 @@ export const useFetchPlaylistById = (id: string) => {
         staleTime: 1000 * 60 * 5
     })
 }
+
+const fetchAlbumById = async (id: string) => {
+    const { data } = await axios.get(`/api/deezer/album/${id}`)
+    return data
+}
+
+export const useFetchAlbumById = (id: string) => {
+    return useQuery({
+        queryKey: ['album', id],
+        queryFn: () => fetchAlbumById(id),
+        enabled: !!id,
+        staleTime: 1000 * 60 * 5
+    })
+}

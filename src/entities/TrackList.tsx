@@ -29,13 +29,13 @@ export const TrackList: React.FC<TrackListProps> = ({ tracks }) => {
                     key={track.id}
                     className="flex items-center w-full p-2 hover:bg-[rgb(24,24,24)] transition-colors rounded-lg">
                     <div className="flex items-center gap-3 w-2/5">
-                        <Image
-                            src={track.album.cover_small}
-                            alt={track.title}
-                            width={56}
-                            height={56}
-                            className="rounded-md"
-                        />
+                            <Image
+                                src={track.album.cover_small}
+                                alt={track.title}
+                                width={56}
+                                height={56}
+                                className="rounded-md"
+                            />
                         <div className="flex flex-col">
                             <h3 className="text-lg font-semibold">
                                 {track.title}
@@ -51,9 +51,11 @@ export const TrackList: React.FC<TrackListProps> = ({ tracks }) => {
                         </div>
                     </div>
 
-                    <p className="w-1/4 text-gray-400 cursor-pointer hover:underline">
+                    <Link
+                        href={`/album/${track.album.id}`}
+                        className="w-1/4 text-gray-400 cursor-pointer hover:underline">
                         {track.album.title}
-                    </p>
+                    </Link>
 
                     <div className="flex items-center gap-4 w-1/4 justify-end">
                         {isFav ? (
