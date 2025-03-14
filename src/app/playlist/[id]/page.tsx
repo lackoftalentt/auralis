@@ -1,6 +1,5 @@
 'use client'
 
-import { formatDuration } from '@/app/hooks/durationFormatter'
 import { useSearchStore } from '@/app/store/searchStore'
 import { Track } from '@/app/types/deezer'
 import { TrackList } from '@/entities/TrackList'
@@ -33,6 +32,12 @@ export default function PlaylistPage() {
 
     console.log(playlist)
 
+    const formatTime = (time: number) => {
+        const minutes = Math.floor(time / 60)
+        const seconds = Math.floor(time % 60)
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
+    }
+
     return (
         <main>
             <div className="flex items-center gap-8 mb-[40px]">
@@ -58,7 +63,7 @@ export default function PlaylistPage() {
                         <h4 className="font-semibold text-xl opacity-75">
                             Duration:{' '}
                             {playlist?.duration
-                                ? formatDuration(playlist.duration)
+                                ? formatTime(playlist.duration)
                                 : 'Unknown'}
                         </h4>
                         <h4 className="font-semibold text-xl opacity-75">

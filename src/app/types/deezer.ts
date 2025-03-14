@@ -13,8 +13,10 @@ export interface PlaylistsResponse {
 
 export interface Track {
     id: number
+    url: string
     title: string
     duration: number
+    image: string
     preview: string
     explicit_lyrics: boolean
     readable: boolean

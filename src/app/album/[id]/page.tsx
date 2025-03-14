@@ -1,6 +1,5 @@
 'use client'
 
-import { formatDuration } from '@/app/hooks/durationFormatter'
 import { useSearchStore } from '@/app/store/searchStore'
 import { Track } from '@/app/types/deezer'
 import { TrackList } from '@/entities/TrackList'
@@ -23,6 +22,12 @@ export default function AlbumPage() {
         album?.tracks?.data?.filter((track: Track) =>
             track.title.toLowerCase().includes(trackSearchQuery.toLowerCase())
         ) || []
+
+    const formatTime = (time: number) => {
+        const minutes = Math.floor(time / 60)
+        const seconds = Math.floor(time % 60)
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
+    }
 
     if (isLoading) return <p>Loading...</p>
     if (error) return <p>Error loading album</p>
@@ -57,7 +62,7 @@ export default function AlbumPage() {
                         <h4 className="font-semibold text-xl opacity-75">
                             Duration:{' '}
                             {album?.duration
-                                ? formatDuration(album.duration)
+                                ? formatTime(album.duration)
                                 : 'Unknown'}
                         </h4>
                         <h4 className="font-semibold text-xl opacity-75">
